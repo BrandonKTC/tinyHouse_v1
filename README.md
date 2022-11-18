@@ -1,7 +1,7 @@
 # TinyHouse v1 Course
 
 - [x] Module 1 Getting Started With Our Server
-- [] Module 2 Comparing APIs
+- [x] Module 2 Comparing APIs
 - [] Module 3 Using Apollo Server
 - [] Module 4 Storing Data
 - [] Module 5 Getting Started with React
