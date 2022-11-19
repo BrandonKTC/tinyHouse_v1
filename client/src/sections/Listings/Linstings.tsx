@@ -1,5 +1,9 @@
-import { server } from "../../lib/api"
-import { DeleteListingData, DeleteListingVariables, ListingsData } from "./types"
+import { useMutation, useQuery } from "../../lib/api";
+import {
+	DeleteListingData,
+	DeleteListingVariables,
+	ListingsData,
+} from "./types";
 
 const LISTINGS = `
     query Listings {
@@ -15,7 +19,7 @@ const LISTINGS = `
             rating
         }
     }
-`
+`;
 
 const DELETE_LISTINGS = `
     mutation DeleteListing($id: ID!) {
@@ -23,35 +27,61 @@ const DELETE_LISTINGS = `
             id
         }
     }   
-`
+`;
 
 interface Props {
-    title: String
+	title: string;
 }
 
 export const Listings = ({ title }: Props) => {
-    
-    const fetchListings = async () => {
-        const { data } = await server.fetch<ListingsData>({ query: LISTINGS })
-        console.log(data);
-    }
+	const { data, loading, error, refetch } = useQuery<ListingsData>(LISTINGS);
 
-    const deleteListings = async () => {
-        const { data } = await server.fetch<DeleteListingData, DeleteListingVariables>({
-            query: DELETE_LISTINGS,
-            variables: {
-            id: "63779287ed4c945b157a74c0"
-            }
-        })
-        console.log(data)
-    }
+	const [
+		deleteListing,
+		{ loading: deleteListingLoading, error: deleteListingError },
+	] = useMutation<DeleteListingData, DeleteListingVariables>(DELETE_LISTINGS);
 
-    return (
-        <div>
-            <h2>{title}</h2>
-            <button onClick={fetchListings}>Query Listings!</button>
-            <button onClick={deleteListings}>Delete a Listings!</button>
-        </div>
-        
-    )
-}
+	const handledeleteListing = async (id: String) => {
+		await deleteListing({ id });
+		refetch();
+	};
+
+	const listings = data ? data.listings : null;
+
+	const listingsList = listings
+		? listings.map((listing, i) => {
+				return (
+					<ul key={i}>
+						<li>
+							{listing.title}
+							<button onClick={() => handledeleteListing(listing.id)}>
+								Delete a Listings!
+							</button>
+						</li>
+					</ul>
+				);
+		  })
+		: null;
+
+	if (loading) return <h2>Loading...</h2>;
+
+	if (error)
+		return <h2>Uh oh! Something went wrong - please try again later :( </h2>;
+
+	const deleteListingLoadingMessage = deleteListingLoading ? (
+		<h4>Deletion in progress...</h4>
+	) : null;
+
+	const deleteListeningErrorMessage = deleteListingLoadingMessage ? (
+		<h4>Uh oh! Something went wrong - please try again later :( </h4>
+	) : null;
+
+	return (
+		<div>
+			<h2>{title}</h2>
+			{listingsList}
+			{deleteListingLoadingMessage}
+			{deleteListeningErrorMessage}
+		</div>
+	);
+};

@@ -1,8 +1,8 @@
-interface Listings {
-	_id: String;
-	title: String;
-	image: String;
-	address: String;
+export interface Listing {
+	id: string;
+	title: string;
+	image: string;
+	address: string;
 	price: number;
 	numOfGuests: number;
 	numOfBeds: number;
@@ -11,11 +11,11 @@ interface Listings {
 }
 
 export interface ListingsData {
-	listings: Listings[];
+	listings: Listing[];
 }
 
 export interface DeleteListingData {
-	deleteListing: Listings;
+	deleteListing: Listing;
 }
 
 export interface DeleteListingVariables {
