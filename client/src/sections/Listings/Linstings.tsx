@@ -1,9 +1,9 @@
 import { useMutation, useQuery, gql } from "@apollo/client";
 import {
-	DeleteListingData,
+	DeleteListing as DeleteListingData,
 	DeleteListingVariables,
-	ListingsData,
-} from "./types";
+	Listings as ListingsData,
+} from "./__generated__";
 
 const LISTINGS = gql`
 	query Listings {
