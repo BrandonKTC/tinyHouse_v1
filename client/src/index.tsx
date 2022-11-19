@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import reportWebVitals from "./reportWebVitals";
 import { Listings } from "./sections";
+import "antd/dist/reset.css";
 
 const root = ReactDOM.createRoot(
 	document.getElementById("root") as HTMLElement

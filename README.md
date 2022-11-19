@@ -8,5 +8,5 @@
 - [x] Module 6 Building out Listings
 - [x] Module 7 GraphQL and Hooks
 - [x] Module 8 Introducing React Apollo
-- [] Module 9 Styling with Ant Design
-- [] Module 10 Part One Conclusion
+- [x] Module 9 Styling with Ant Design
+- [x] Module 10 Part One Conclusion
