@@ -41,7 +41,7 @@ export const Listings = ({ title }: Props) => {
 		{ loading: deleteListingLoading, error: deleteListingError },
 	] = useMutation<DeleteListingData, DeleteListingVariables>(DELETE_LISTINGS);
 
-	const handledeleteListing = async (id: String) => {
+	const handleDeleteListing = async (id: String) => {
 		await deleteListing({ variables: { id } });
 		refetch();
 	};
@@ -54,7 +54,7 @@ export const Listings = ({ title }: Props) => {
 					<ul key={i}>
 						<li>
 							{listing.title}
-							<button onClick={() => handledeleteListing(listing.id)}>
+							<button onClick={() => handleDeleteListing(listing.id)}>
 								Delete a Listings!
 							</button>
 						</li>
@@ -72,7 +72,7 @@ export const Listings = ({ title }: Props) => {
 		<h4>Deletion in progress...</h4>
 	) : null;
 
-	const deleteListeningErrorMessage = deleteListingLoadingMessage ? (
+	const deleteListeningErrorMessage = deleteListingError ? (
 		<h4>Uh oh! Something went wrong - please try again later :( </h4>
 	) : null;
 
