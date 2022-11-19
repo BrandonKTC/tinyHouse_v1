@@ -53,7 +53,7 @@ export const Listings = ({ title }: Props) => {
 			{listings.map((listing) => {
 				return (
 					<li key={listing.id}>
-						{listing.title}{" "}
+						{listing.title}
 						<button onClick={() => handleDeleteListing(listing.id)}>
 							Delete
 						</button>
